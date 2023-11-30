@@ -27,7 +27,8 @@ jobs:
           cd stock-price-tracker
           npm install
           npm run gh-build
-          cp dist/stock-price-tracker/index.html dist/stock-price-tracker/404.html
+          cp dist/index.html dist/404.html
+
       - name: Commit Changes
         run: |
           git add -A
