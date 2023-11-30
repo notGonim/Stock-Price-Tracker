@@ -28,8 +28,7 @@ jobs:
           npm install
           npm run gh-build
           cp dist/index.html dist/404.html
-        env:
-            CI:true 
+
         working-directory: ./stock-price-tracker
 
       - name: Commit Changes
