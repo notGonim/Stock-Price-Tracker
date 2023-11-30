@@ -19,7 +19,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '14'
           cache: 'npm'
 
       - name: Install Dependencies and Build Angular
@@ -28,6 +28,8 @@ jobs:
           npm install
           npm run gh-build
           cp dist/index.html dist/404.html
+        env:
+            CI:true 
         working-directory: ./stock-price-tracker
 
       - name: Commit Changes
