@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  nginx-frontend:
+    build:
+      context: stock-price-tracker
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+
+
