@@ -1,0 +1,39 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: 'npm'
+
+      - name: Install Dependencies and Build Angular
+        run: |
+          cd stock-price-tracker
+          npm install
+          npm run gh-build
+          cp dist/index.html dist/404.html
+        env:
+            CI:true 
+        working-directory: ./stock-price-tracker
+
+      - name: Commit Changes
+        run: |
+          git add -A
+          git commit -m "Build and test Angular project"
+          git push
