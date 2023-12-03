@@ -27,11 +27,11 @@ jobs:
         working-directory: ./src  # Adjust the path to match your project structure
 
       - name: Debug Directory Structure
-        run: ls -R ./build
+        run: ls -R ./dist
         working-directory: .
 
       - name: Copy Build to Dist
-        run: mkdir -p ./dist && [ -d "./build/dist" ] && cp -r ./build/dist/* ./dist/
+        run: mkdir -p ./dist && [ -d "./dist" ] && cp -r ./dist/* ./dist/
         working-directory: .
 
       - name: Archive build
