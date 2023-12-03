@@ -30,9 +30,9 @@ jobs:
         run: ls -R ./dist
         working-directory: .
 
-      - name: Copy Build to Dist
-        run: mkdir -p ./dist && [ -d "./dist" ] && cp -r ./dist/* ./dist/
-        working-directory: .
+     - name: Copy Build to Dist
+       run: cp -r ./dist/stock-price-tracker/. ./dist/
+       working-directory: .
 
       - name: Archive build
         if: success()
