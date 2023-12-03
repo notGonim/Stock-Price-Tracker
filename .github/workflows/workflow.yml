@@ -52,9 +52,20 @@ jobs:
         with:
           name: deploy_dist
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: deploy_dist
+      - name: Clone destination repository
+        run: |
+          git config --global user.email "mahmoud.ghonamie@orascom.com"
+          git config --global user.name "notgonim"
+          git clone https://notgonim:${{ secrets.GITHUB_TOKEN }}@github.com/notgonim/Github_Actions_build_repo_test.git
+        working-directory: .
+
+      - name: Copy build to destination repository
+        run: cp -r ./deploy_dist/* ./Github_Actions_build_repo_test
+        working-directory: .
+
+      - name: Commit and push changes
+        run: |
+          cd Github_Actions_build_repo_test
+          git add .
+          git commit -m "Add build files"
+          git push origin master
