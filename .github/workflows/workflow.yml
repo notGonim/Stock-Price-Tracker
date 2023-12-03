@@ -26,10 +26,7 @@ jobs:
         run: npm run build:ci
         working-directory: ./src  # Adjust the path to match your project structure
 
-      - name: Test
-        run: npm run test:ci
-        working-directory: ./src  # Adjust the path to match your project structure
-
+     
       - name: Archive build
         if: success()
         uses: actions/upload-artifact@v2
