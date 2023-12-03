@@ -25,10 +25,13 @@ jobs:
       - name: Build
         run: npm run build:ci
         working-directory: ./src  # Adjust the path to match your project structure
+- name: Debug Directory Structure
+  run: ls -R ./build
+  working-directory: .
 
-      - name: Copy Build to Dist
-        run: mkdir -p ./build/dist && cp -r ./build/dist/* ./dist/
-        working-directory: .
+- name: Copy Build to Dist
+  run: mkdir -p ./dist && [ -d "./build/dist" ] && cp -r ./build/dist/* ./dist/
+  working-directory: .
 
      
       - name: Archive build
