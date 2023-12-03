@@ -16,13 +16,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-          sparse-checkout: .
       - name: Install dependencies
         run: npm ci
+        working-directory: .  # Adjust the path to match your project structure
       - name: Build
         run: npm run build:ci
+        working-directory: .  # Adjust the path to match your project structure
       - name: Test
         run: npm run test:ci
+        working-directory: .  # Adjust the path to match your project structure
       - name: Archive build
         if: success()
         uses: actions/upload-artifact@v1
@@ -50,4 +52,4 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: deploy_dist/angular-demo
+          FOLDER: deploy_dist
