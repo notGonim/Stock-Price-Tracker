@@ -32,7 +32,7 @@ jobs:
 
      - name: Copy Build to Dist
        run: cp -r ./dist/stock-price-tracker/. ./dist/
-       working-directory: .
+       working-directory: ./src
 
       - name: Archive build
         if: success()
