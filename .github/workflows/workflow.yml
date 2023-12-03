@@ -30,10 +30,6 @@ jobs:
         run: ls -R ./dist
         working-directory: .
 
-     - name: Copy Build to Dist
-       run: cp -r ./dist/stock-price-tracker/. ./dist/
-       working-directory: ./src
-
       - name: Archive build
         if: success()
         uses: actions/upload-artifact@v2
