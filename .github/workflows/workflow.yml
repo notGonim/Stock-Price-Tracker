@@ -12,41 +12,50 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Use Node 12.x
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+
       - name: Install dependencies
         run: npm ci
-        working-directory: .  # Adjust the path to match your project structure
+        working-directory: ./src  # Adjust the path to match your project structure
+
       - name: Build
         run: npm run build:ci
-        working-directory: .  # Adjust the path to match your project structure
+        working-directory: ./src  # Adjust the path to match your project structure
+
       - name: Test
         run: npm run test:ci
-        working-directory: .  # Adjust the path to match your project structure
+        working-directory: ./src  # Adjust the path to match your project structure
+
       - name: Archive build
         if: success()
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: deploy_dist
-          path: dist
+          path: ./src/dist
+
       - name: Archive code coverage result
         if: success()
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: deploy_coverage
-          path: coverage
+          path: ./src/coverage
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+
       - name: Download build
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: deploy_dist
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
