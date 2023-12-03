@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Use Node 18.x
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '18.x'
 
@@ -25,15 +25,15 @@ jobs:
       - name: Build
         run: npm run build:ci
         working-directory: ./src  # Adjust the path to match your project structure
-- name: Debug Directory Structure
-  run: ls -R ./build
-  working-directory: .
 
-- name: Copy Build to Dist
-  run: mkdir -p ./dist && [ -d "./build/dist" ] && cp -r ./build/dist/* ./dist/
-  working-directory: .
+      - name: Debug Directory Structure
+        run: ls -R ./build
+        working-directory: .
 
-     
+      - name: Copy Build to Dist
+        run: mkdir -p ./dist && [ -d "./build/dist" ] && cp -r ./build/dist/* ./dist/
+        working-directory: .
+
       - name: Archive build
         if: success()
         uses: actions/upload-artifact@v2
