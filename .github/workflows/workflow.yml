@@ -26,6 +26,10 @@ jobs:
         run: npm run build:ci
         working-directory: ./src  # Adjust the path to match your project structure
 
+      - name: Debug Directory Structure
+        run: ls -R ./src
+        working-directory: .
+
       - name: Archive build
         if: success()
         uses: actions/upload-artifact@v2
@@ -59,8 +63,13 @@ jobs:
           git clone https://notgonim:${{ secrets.GITHUB_TOKEN }}@github.com/notgonim/Github_Actions_build_repo_test.git
         working-directory: .
 
+      - name: Debug Destination Directory Structure
+        run: ls -R ./Github_Actions_build_repo_test
+        working-directory: .
+
       - name: Copy build to destination repository
-        run: cp -r ./deploy_dist/* ./Github_Actions_build_repo_test
+        run: |
+          [ -d "./deploy_dist" ] && cp -r ./deploy_dist/* ./Github_Actions_build_repo_test
         working-directory: .
 
       - name: Commit and push changes
