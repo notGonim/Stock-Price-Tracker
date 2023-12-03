@@ -26,6 +26,10 @@ jobs:
         run: npm run build:ci
         working-directory: ./src  # Adjust the path to match your project structure
 
+      - name: Copy Build to Dist
+        run: mkdir -p ./dist && cp -r ./dist/* ./dist/
+        working-directory: .
+
      
       - name: Archive build
         if: success()
