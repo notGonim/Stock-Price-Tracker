@@ -62,6 +62,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: Debug SSH Connection
+        run: ssh -vT git@github.com
+
       - name: Download build
         uses: actions/download-artifact@v2
         with:
@@ -89,5 +92,5 @@ jobs:
           cd Github_Actions_build_repo_test
           git add .
           git commit -m "Add build files"
-          git remote add origin_with_token git@github.com:notgonim/Github_Actions_build_repo_test.git
+          git remote -v
           git push origin_with_token master
