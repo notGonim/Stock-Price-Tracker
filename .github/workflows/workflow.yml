@@ -1,10 +1,8 @@
 name: Build and Deploy
-
-on:
+'on':
   push:
     branches:
-      - 'master'
-
+      - master
 jobs:
   build:
     name: Build and Test
@@ -12,73 +10,61 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
       - name: Generate SSH key
-        run: |
+        run: >
           mkdir -p ~/.ssh
-          ssh-keygen -t rsa -b 4096 -C "mahmoud.ghonamie@orascom.com" -f ~/.ssh/id_rsa -N ""
 
+          ssh-keygen -t rsa -b 4096 -C "mahmoud.ghonamie@orascom.com" -f
+          ~/.ssh/id_rsa -N ""
       - name: Add SSH key to SSH agent
         run: eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
-
       - name: Configure Git to use SSH
-        run: git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no"
-
+        run: >-
+          git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa -o
+          StrictHostKeyChecking=no"
       - name: Use Node 18.x
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
-
+          node-version: 18.x
       - name: Install dependencies
         run: npm ci
-        working-directory: .  
-
+        working-directory: .
       - name: Build
-        run: npm run build:ci
-        working-directory: .  
-
+        run: 'npm run build:ci'
+        working-directory: .
       - name: Debug Directory Structure
         run: ls -R ./src
         working-directory: .
-
       - name: Archive build
         if: success()
         uses: actions/upload-artifact@v2
         with:
           name: deploy_dist
-          path: ./dist  
-
+          path: ./dist
       - name: Archive code coverage result
         if: success()
         uses: actions/upload-artifact@v2
         with:
           name: deploy_coverage
-          path: ./dist  
-
+          path: ./dist
   deploy:
     runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-
       - name: Clone destination repository
         uses: actions/checkout@v2
         with:
-          repository: git@github.com:notgonim/Github_Actions_build_repo_test.git
+          repository: 'git@github.com:notgonim/Github_Actions_build_repo_test.git'
         path: ./Github_Actions_build_repo_test
-
       - name: Debug Destination Directory Structure
         run: ls -R ./Github_Actions_build_repo_test
         working-directory: ./Github_Actions_build_repo_test
-
       - name: Copy build to destination repository
         run: |
           [ -d "./dist" ] && cp -r ./dist/* ./Github_Actions_build_repo_test
         working-directory: ./Github_Actions_build_repo_test
-
-        working-directory: ./Github_Actions_build_repo_test
-
       - name: Commit and push changes
         run: |
           cd Github_Actions_build_repo_test
