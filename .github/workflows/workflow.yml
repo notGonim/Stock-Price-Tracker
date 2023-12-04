@@ -20,11 +20,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: ./src  # Adjust the path to match your project structure
+        working-directory: .  # Adjust the path to match your project structure
 
       - name: Build
         run: npm run build:ci
-        working-directory: ./src  # Adjust the path to match your project structure
+        working-directory: .  # Adjust the path to match your project structure
 
       - name: Debug Directory Structure
         run: ls -R ./src
