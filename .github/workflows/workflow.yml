@@ -78,4 +78,6 @@ jobs:
           cd Github_Actions_build_repo_test
           git add .
           git commit -m "Add build files"
-          git push origin master
+          git remote add origin_with_token https://notgonim:${{ secrets.WORKFLOWPASSWORD }}@github.com/notgonim/Github_Actions_build_repo_test.git
+          git push origin_with_token master
+
