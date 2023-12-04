@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: workflow
 'on':
   push:
     branches:
