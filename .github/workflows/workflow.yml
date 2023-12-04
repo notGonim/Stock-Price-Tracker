@@ -1,4 +1,4 @@
-name: workflow name
+name: Build and Deploy
 
 on:
   push:
@@ -31,11 +31,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: .  # Adjust the path to match your project structure
+        working-directory: .  
 
       - name: Build
         run: npm run build:ci
-        working-directory: .  # Adjust the path to match your project structure
+        working-directory: .  
 
       - name: Debug Directory Structure
         run: ls -R ./src
@@ -46,14 +46,14 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: deploy_dist
-          path: ./dist  # Adjust the path to match your project structure
+          path: ./dist  
 
       - name: Archive code coverage result
         if: success()
         uses: actions/upload-artifact@v2
         with:
           name: deploy_coverage
-          path: ./dist  # Adjust the path to match your project structure
+          path: ./dist  
 
   deploy:
     runs-on: ubuntu-latest
@@ -65,17 +65,19 @@ jobs:
       - name: Clone destination repository
         uses: actions/checkout@v2
         with:
-          repository: notgonim/Github_Actions_build_repo_test
+          repository: git@github.com:notgonim/Github_Actions_build_repo_test.git
         path: ./Github_Actions_build_repo_test
 
       - name: Debug Destination Directory Structure
         run: ls -R ./Github_Actions_build_repo_test
-        working-directory: .
+        working-directory: ./Github_Actions_build_repo_test
 
       - name: Copy build to destination repository
         run: |
           [ -d "./dist" ] && cp -r ./dist/* ./Github_Actions_build_repo_test
-        working-directory: .
+        working-directory: ./Github_Actions_build_repo_test
+
+        working-directory: ./Github_Actions_build_repo_test
 
       - name: Commit and push changes
         run: |
