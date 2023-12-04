@@ -65,8 +65,6 @@ jobs:
 
       - name: Clone destination repository
         run: |
-          eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/id_rsa
           git clone git@github.com:notgonim/Github_Actions_build_repo_test.git
         working-directory: .
 
