@@ -62,20 +62,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Debug SSH Connection
-        run: ssh -vT git@github.com
-
-      - name: Download build
-        uses: actions/download-artifact@v2
-        with:
-          name: deploy_dist
-          path: ./dist  # Adjust the path to match your desired location
+      - name: Set SSH Key Permissions
+        run: chmod 600 ~/.ssh/id_rsa
 
       - name: Clone destination repository
         run: |
-          git config --global user.email "mahmoud.ghonamie@orascom.com"
-          git config --global user.name "notgonim"
-          git clone https://notgonim:${{ secrets.WORKFLOWPASSWORD }}@github.com/notgonim/Github_Actions_build_repo_test.git
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
+          git clone git@github.com:notgonim/Github_Actions_build_repo_test.git
         working-directory: .
 
       - name: Debug Destination Directory Structure
@@ -92,5 +86,5 @@ jobs:
           cd Github_Actions_build_repo_test
           git add .
           git commit -m "Add build files"
-          git remote -v
-          git push origin_with_token master
+          git remote -v  
+          git push origin master
