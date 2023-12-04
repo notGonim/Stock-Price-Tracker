@@ -61,7 +61,7 @@ jobs:
         run: |
           git config --global user.email "mahmoud.ghonamie@orascom.com"
           git config --global user.name "notgonim"
-          git clone https://notgonim:${{ secrets.GITHUB_TOKEN }}@github.com/notgonim/Github_Actions_build_repo_test.git
+          git clone https://notgonim:${{ secrets.WORKFLOWPASSWORD }}@github.com/notgonim/Github_Actions_build_repo_test.git
         working-directory: .
 
       - name: Debug Destination Directory Structure
