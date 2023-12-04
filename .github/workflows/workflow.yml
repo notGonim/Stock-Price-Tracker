@@ -16,7 +16,7 @@ jobs:
       - name: Generate SSH key
         run: |
           mkdir -p ~/.ssh
-          ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f ~/.ssh/id_rsa -N ""
+          ssh-keygen -t rsa -b 4096 -C "mahmoud.ghonamie@orascom.com" -f ~/.ssh/id_rsa -N ""
 
       - name: Add SSH key to SSH agent
         run: eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
@@ -65,6 +65,8 @@ jobs:
 
       - name: Clone destination repository
         run: |
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
           git clone git@github.com:notgonim/Github_Actions_build_repo_test.git
         working-directory: .
 
