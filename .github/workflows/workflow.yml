@@ -70,7 +70,7 @@ jobs:
 
       - name: Copy build to destination repository
         run: |
-          [ -d "./deploy_dist" ] && cp -r ./deploy_dist/* ./Github_Actions_build_repo_test
+          [ -d "./dist" ] && cp -r ./dist/* ./Github_Actions_build_repo_test
         working-directory: .
 
       - name: Commit and push changes
