@@ -52,8 +52,8 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v2
         with:
-      .    name: deploy_coverage
-          path: ./dist
+          name: deploy_coverage
+          path: ./dist  # Adjust the path to match your project structure
 
   deploy:
     runs-on: ubuntu-latest
@@ -91,5 +91,3 @@ jobs:
           git commit -m "Add build files"
           git remote add origin_with_token git@github.com:notgonim/Github_Actions_build_repo_test.git
           git push origin_with_token master
-
-
