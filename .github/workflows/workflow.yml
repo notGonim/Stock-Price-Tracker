@@ -62,13 +62,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-
       - name: Clone destination repository
-        run: |
-          eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/id_rsa
-          git clone git@github.com:notgonim/Github_Actions_build_repo_test.git
-        working-directory: .
+        uses: actions/checkout@v2
+        with:
+          repository: notgonim/Github_Actions_build_repo_test
+          token: ${{ secrets.WORKFLOWPASSWORD }}
+          path: ./Github_Actions_build_repo_test
 
       - name: Debug Destination Directory Structure
         run: ls -R ./Github_Actions_build_repo_test
