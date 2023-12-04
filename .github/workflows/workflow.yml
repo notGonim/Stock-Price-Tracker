@@ -35,14 +35,14 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: deploy_dist
-          path: ./src/dist  # Adjust the path to match your project structure
+          path: .  # Adjust the path to match your project structure
 
       - name: Archive code coverage result
         if: success()
         uses: actions/upload-artifact@v2
         with:
           name: deploy_coverage
-          path: ./src/coverage
+          path: .
 
   deploy:
     runs-on: ubuntu-latest
@@ -55,7 +55,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: deploy_dist
-          path: ./deploy_dist  # Adjust the path to match your desired location
+          path: ./dist  # Adjust the path to match your desired location
 
       - name: Clone destination repository
         run: |
