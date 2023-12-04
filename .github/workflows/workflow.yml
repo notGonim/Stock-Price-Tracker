@@ -13,6 +13,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Generate SSH key
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f ~/.ssh/id_rsa -N ""
+
+      - name: Add SSH key to SSH agent
+        run: eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
+
+      - name: Configure Git to use SSH
+        run: git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no"
+
       - name: Use Node 18.x
         uses: actions/setup-node@v3
         with:
@@ -41,7 +52,7 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: deploy_coverage
+      .    name: deploy_coverage
           path: ./dist
 
   deploy:
