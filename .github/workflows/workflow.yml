@@ -69,7 +69,7 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: notgonim/Github_Actions_build_repo_test
-          token: ${{ secrets.workflowPassword }}
+          token: ${{ secrets.PAT_TOKEN }}
 
       - name: Debug Destination Directory Structure
         run: ls -R ./Github_Actions_build_repo_test
