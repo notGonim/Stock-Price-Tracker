@@ -67,7 +67,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: 'git@github.com:notgonim/Github_Actions_build_repo_test.git'
-        path: ./Github_Actions_build_repo_test
+          path: ./Github_Actions_build_repo_test
+          ref: 'master'
 
       - name: Debug Destination Directory Structure
         run: ls -R ./Github_Actions_build_repo_test
