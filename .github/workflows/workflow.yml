@@ -61,16 +61,16 @@ jobs:
     needs: build
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           ref: 'master'
 
       - name: Clone destination repository
-        uses: actions/checkout@v2
-        with:
-          repository: 'git@github.com:notgonim/Github_Actions_build_repo_test.git'
-          path: ./Github_Actions_build_repo_test
-          ref: 'master'
+        run: |
+          git config --global user.email "mahmoud.ghonamie@orascom.com"
+          git config --global user.name "notgonim"
+          git clone git@github.com:notgonim/Github_Actions_build_repo_test.git ./Github_Actions_build_repo_test
+        working-directory: .
 
       - name: Debug Destination Directory Structure
         run: ls -R ./Github_Actions_build_repo_test
@@ -83,8 +83,7 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          cd Github_Actions_build_repo_test
           git add .
           git commit -m "Add build files"
-          git remote -v
           git push origin master
+        working-directory: ./Github_Actions_build_repo_test
