@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 18
+        node-version: 14
 
     - name: Install dependencies
       run: |
@@ -47,5 +47,4 @@ jobs:
         cd deploy
         git add .
         git commit -m "Deploy Angular app"
-        git remote add origin https://github.com/notgonim/Github_Actions_build_repo_test.git # Replace with the destination repository URL
         git push --force -u origin master:master # Adjust branch names as needed
